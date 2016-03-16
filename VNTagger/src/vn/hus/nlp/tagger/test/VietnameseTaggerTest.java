@@ -3,6 +3,10 @@
  */
 package vn.hus.nlp.tagger.test;
 
+import java.util.List;
+
+import edu.stanford.nlp.ling.WordTag;
+import vn.hus.nlp.tagger.IConstants;
 import vn.hus.nlp.tagger.VietnameseMaxentTagger;
 
 /**
@@ -21,7 +25,17 @@ public class VietnameseTaggerTest {
 		VietnameseMaxentTagger tagger = new VietnameseMaxentTagger();
 		for (String sentence : sentences) {
 			try {
-				System.out.println(tagger.tagText(sentence));
+				StringBuffer result = new StringBuffer(1024);
+				List<WordTag> list = tagger.tagText2(sentence);
+				for (WordTag wordTag : list) {
+					if(!wordTag.tag().equals("R")&&!wordTag.tag().equals("L")){
+					result.append(wordTag.word());
+					result.append(IConstants.DELIM);
+					result.append(wordTag.tag());
+					result.append(" ");
+					}
+				}
+				System.out.println(result.toString().trim());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
