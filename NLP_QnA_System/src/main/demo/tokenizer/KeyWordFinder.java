@@ -21,7 +21,7 @@ public void findWords(String filePath){
 			for (WordTag wordTag : list) {
 				if(!wordTag.tag().equals("R")&&!wordTag.tag().equals("L")){
 				if(!listDBWord.contains(wordTag.word().toUpperCase())){
-					listDBWord.add(wordTag.word());
+					listDBWord.add(wordTag.word().toUpperCase());
 					wordAccess.addKeyWord(wordTag.word());
 				}
 				
