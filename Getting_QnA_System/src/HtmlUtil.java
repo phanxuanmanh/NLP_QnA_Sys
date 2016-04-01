@@ -4,8 +4,6 @@ import javax.swing.text.html.HTML.Tag;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-
 import javax.swing.text.MutableAttributeSet;
 public class HtmlUtil {
 	 public HtmlUtil() {}

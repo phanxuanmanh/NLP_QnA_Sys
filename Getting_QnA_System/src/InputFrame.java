@@ -20,9 +20,11 @@ public class InputFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	JTextField url;
 	JTextArea question, answer;
-	JButton submit;
+	JButton splitQnA,save;
+	public static ExcelWriter writer;
 
 	public InputFrame() {
+		writer = new ExcelWriter();
 		createJFrame();
 	}
 
@@ -81,9 +83,11 @@ public class InputFrame extends JFrame {
 	// create login button panel
 	private JPanel createLoginButtonPanel() {
 		JPanel panel = new JPanel();
-		submit = new JButton("Submit");
-		panel.add(submit);
-		submit.addActionListener(new ActionListener() {
+		splitQnA = new JButton("get QnA");
+		save = new JButton("Save all");
+		panel.add(splitQnA);
+		panel.add(save);
+		splitQnA.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -93,6 +97,7 @@ public class InputFrame extends JFrame {
 						QnA_Pair pair  = UrlReader.accessQnA(url.getText())	;
 						question.setText(pair.getQuestion());
 						answer.setText(pair.getAnswer());
+						writer.addQnA(pair);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(null,
@@ -105,6 +110,17 @@ public class InputFrame extends JFrame {
 				}
 	
 				
+			}
+		});
+		save.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					writer.writeToExcel("QnA2");
+				} catch (Exception e2) {
+				}
 			}
 		});
 		return panel;
