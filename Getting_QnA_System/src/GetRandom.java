@@ -11,12 +11,13 @@ public class GetRandom {
 	public void addQnA(int startNum, int endNum) {
 		String url;
 		for (int i = startNum; i < endNum; i++) {
-			url = "http://pdt.hcmuaf.edu.vn/pdt-" + i
-					+ "-3/vn/cautraloitructuyen.html";
+			url = "http://pdt.hcmuaf.edu.vn/pdt-" + i + "-3/vn/cautraloitructuyen.html";
 			try {
 				QnA_Pair pair = UrlReader.accessQnA(url);
-				if (pair != null)
+				if (pair != null) {
+					System.out.println(i);
 					writer.addQnA(pair);
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -38,7 +39,7 @@ public class GetRandom {
 
 	public static void main(String[] args) {
 		GetRandom getRD = new GetRandom();
-		getRD.addQnA(85000,100000);
-		getRD.writeToExcel("QnA3");
+		getRD.addQnA(104000, 105000);
+		getRD.writeToExcel("QnA7");
 	}
 }
