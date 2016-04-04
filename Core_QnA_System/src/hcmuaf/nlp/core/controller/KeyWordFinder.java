@@ -2,7 +2,8 @@ package hcmuaf.nlp.core.controller;
 
 import hcmuaf.nlp.core.DBConnect.QnAAccessor;
 import hcmuaf.nlp.core.DBConnect.WordAccessor;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,8 @@ import vn.hus.nlp.tagger.VietnameseMaxentTagger;
 import edu.stanford.nlp.ling.WordTag;
 
 public class KeyWordFinder {
+	private static final String[] listTag = { "Np", "Nc", "Nu", "N", "V", "A",
+			"P", "M", "E", "C", "CC", "I", "T", "X", "Y", "Z" };
 	private static WordAccessor wordAccess;
 
 	public void findWords(String filePath) {
@@ -42,30 +45,49 @@ public class KeyWordFinder {
 	public void questionStatistic(int quesID) {
 		String question = QnAAccessor.getQuestion(quesID);
 		if (question != null) {
-			wordAccess = new WordAccessor();
-
-			Set<String> listDBWord = wordAccess.getListkeyWord();
-			VietnameseMaxentTagger tagger = new VietnameseMaxentTagger();
-			try {
-				StringBuffer result = new StringBuffer(1024);
-				List<WordTag> list = tagger.tagText2(question);
-				System.out.println("start");
-				for (WordTag wordTag : list) {
-					if (!wordTag.tag().equals("R")
-							&& !wordTag.tag().equals("L")) {
-						if (!listDBWord.contains(wordTag.word().toUpperCase())) {
-							listDBWord.add(wordTag.word().toUpperCase());
-							wordAccess.addKeyWord(wordTag.word());
+			String[] quesArr = question.split("\\.");
+			for (String str : quesArr) {
+				if (str.length() > 300)
+					continue;
+				wordAccess = new WordAccessor();
+				VietnameseMaxentTagger tagger = new VietnameseMaxentTagger();
+				try {
+					String tokenizedString = VietnameseMaxentTagger
+							.getTokenizer().segment(str);
+					String[] arr = tokenizedString.split("\\s+");
+					System.out.println("complete split");
+					List<String> words = new ArrayList<String>(
+							Arrays.asList(arr));
+					List<WordTag> list = tagger.tagList(words);
+					/*
+					 * for (WordTag wordTag : list) { if
+					 * (!wordTag.tag().equals("R") &&
+					 * !wordTag.tag().equals("L")) { if
+					 * (!listDBWord.contains(wordTag.word().toUpperCase())) {
+					 * listDBWord.add(wordTag.word().toUpperCase());
+					 * wordAccess.addKeyWord(wordTag.word()); } int wid =
+					 * wordAccess.getWordId(wordTag.word());
+					 * wordAccess.updateWordCount(quesID, wid); } }
+					 */
+					for (WordTag wordTag : list) {
+						if (isKeyWord(wordTag)) {
+							String wordContent = wordTag.word();
+							int wid = wordAccess.getWordId(wordContent);
+							wordAccess.updateWordCount(quesID, wid);
 						}
-						int wid = wordAccess.getWordId(wordTag.word());
-						wordAccess.updateWordCount(quesID, wid);
+
 					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				System.out.println(result.toString().trim());
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 		}
-		System.out.println("completed work on question with ID : " + quesID);
+	}
+
+	public boolean isKeyWord(WordTag wordTag) {
+		for (String s : listTag)
+			if (wordTag.tag().endsWith(s))
+				return true;
+		return false;
 	}
 }
