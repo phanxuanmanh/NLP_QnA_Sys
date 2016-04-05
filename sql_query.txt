@@ -1,0 +1,16 @@
+SELECT 
+    wid, SUM(weight) AS weight
+FROM
+    (SELECT 
+        kw.wid, 0.0 AS weight
+    FROM
+        key_words kw 
+	UNION 
+    SELECT 
+        kw.wid, v.weight
+    FROM
+        key_words kw, question_vectors v
+    WHERE
+        v.q_id = 1 AND kw.wid = v.wid) t
+GROUP BY wid
+ORDER BY wid
