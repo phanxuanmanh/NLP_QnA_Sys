@@ -13,5 +13,7 @@
 	<classpathentry kind="lib" path="lib/vn.hus.nlp.utils-1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.38.jar"/>
+	<classpathentry kind="lib" path="lib/libsvm.jar"/>
+	<classpathentry kind="lib" path="lib/weka.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

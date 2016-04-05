@@ -11,7 +11,7 @@ public class DbConnector {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/nlp?useUnicode=yes&characterEncoding=UTF-8", "root", "manh980838");
+					"jdbc:mysql://localhost:3306/nlp?useUnicode=yes&characterEncoding=UTF-8", "root", "");
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
