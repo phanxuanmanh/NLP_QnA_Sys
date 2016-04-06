@@ -36,7 +36,7 @@ public class WordAccessor {
 		ArrayList<Keyword> listWord = new ArrayList<Keyword>();
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp = con.prepareStatement("select wid,content from key_words");
+			PreparedStatement pp = con.prepareStatement("select wid,content from key_words order by wid asc");
 			ResultSet rs = pp.executeQuery();
 			while (rs.next()) {
 				int wordID = rs.getInt(1);

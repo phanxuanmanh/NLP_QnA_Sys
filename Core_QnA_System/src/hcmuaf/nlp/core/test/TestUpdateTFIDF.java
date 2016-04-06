@@ -1,11 +1,6 @@
 package hcmuaf.nlp.core.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import hcmuaf.nlp.core.DBConnect.WordAccessor;
 import hcmuaf.nlp.core.controller.KeyWordCalculator;
-import hcmuaf.nlp.core.model.Keyword;
 
 public class TestUpdateTFIDF {
 	public static void main(String[] args) {
