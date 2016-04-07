@@ -221,7 +221,6 @@ public class QnAAccessor {
 			double weight = result.getDouble(2);
 			listWeight.add(String.valueOf(weight));
 		}
-		System.out.println("question : " + questionID);
 		int typeID = getQuestionType(questionID);
 		QuestionVectorCsv vector =null;
 		if (typeID>0) {
