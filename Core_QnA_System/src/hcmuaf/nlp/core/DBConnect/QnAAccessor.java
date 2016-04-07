@@ -17,8 +17,10 @@ public class QnAAccessor {
 		con = DbConnector.getConnection();
 		int qid = 0;
 		try {
-			PreparedStatement pp_getid = con.prepareStatement("select max(q_id) from questions");
-			PreparedStatement pp_insert = con.prepareStatement("insert into questions(q_id, q_content) values (?,?)");
+			PreparedStatement pp_getid = con
+					.prepareStatement("select max(q_id) from questions");
+			PreparedStatement pp_insert = con
+					.prepareStatement("insert into questions(q_id, q_content) values (?,?)");
 
 			ResultSet rs_getid = pp_getid.executeQuery();
 			while (rs_getid.next()) {
@@ -40,8 +42,10 @@ public class QnAAccessor {
 		con = DbConnector.getConnection();
 		int aid = 0;
 		try {
-			PreparedStatement pp_getid = con.prepareStatement("select max(a_id) from answers");
-			PreparedStatement pp_insert = con.prepareStatement(" insert into answers(a_id, a_content) values (?,?)");
+			PreparedStatement pp_getid = con
+					.prepareStatement("select max(a_id) from answers");
+			PreparedStatement pp_insert = con
+					.prepareStatement(" insert into answers(a_id, a_content) values (?,?)");
 
 			ResultSet rs_getid = pp_getid.executeQuery();
 			while (rs_getid.next()) {
@@ -69,7 +73,8 @@ public class QnAAccessor {
 			if (con != null)
 				con = DbConnector.getConnection();
 			try {
-				PreparedStatement pp = con.prepareStatement("insert into qna_pair(q_id,a_id,type_id) values (?,?,?)");
+				PreparedStatement pp = con
+						.prepareStatement("insert into qna_pair(q_id,a_id,type_id) values (?,?,?)");
 				pp.setInt(1, q_id);
 				pp.setInt(2, a_id);
 				pp.setInt(3, pair.getTypeID());
@@ -90,7 +95,8 @@ public class QnAAccessor {
 		String question = null;
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp = con.prepareStatement("select q_content from questions where q_id = ?");
+			PreparedStatement pp = con
+					.prepareStatement("select q_content from questions where q_id = ?");
 			pp.setInt(1, qId);
 			ResultSet result = pp.executeQuery();
 			while (result.next()) {
@@ -110,7 +116,8 @@ public class QnAAccessor {
 		ArrayList<QuestionType> typeList = new ArrayList<QuestionType>();
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp = con.prepareStatement("select type_id, type_name from question_types");
+			PreparedStatement pp = con
+					.prepareStatement("select type_id, type_name from question_types");
 			ResultSet result = pp.executeQuery();
 			while (result.next()) {
 				int typeID = result.getInt(1);
@@ -130,7 +137,8 @@ public class QnAAccessor {
 		int typeID = 0;
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp = con.prepareStatement("select type_id from qna_pair where q_id = ?");
+			PreparedStatement pp = con
+					.prepareStatement("select type_id from qna_pair where q_id = ?");
 			pp.setInt(1, qId);
 			ResultSet result = pp.executeQuery();
 			while (result.next()) {
@@ -150,7 +158,8 @@ public class QnAAccessor {
 		ArrayList<Integer> listID = new ArrayList<>();
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp = con.prepareStatement("select q_id from questions");
+			PreparedStatement pp = con
+					.prepareStatement("select q_id from questions");
 			ResultSet result = pp.executeQuery();
 			while (result.next()) {
 				int qid = result.getInt(1);
@@ -166,15 +175,17 @@ public class QnAAccessor {
 	}
 
 	// Read all question vector data
-	public static ArrayList<QuestionVectorCsv> readQuestionVectorData() throws SQLException {
+	public static ArrayList<QuestionVectorCsv> readQuestionVectorData()
+			throws SQLException {
 		ArrayList<QuestionVectorCsv> data = new ArrayList<>();
 		ArrayList<Integer> qlist = getQuestionList();
-		
+
 		for (int i : qlist) {
 			ArrayList<String> listWeight = new ArrayList<>();
 			con = DbConnector.getConnection();
-			PreparedStatement pp = con.prepareStatement(
-					"SELECT wid, SUM(weight) AS weight FROM" + " (SELECT kw.wid, 0.0 AS weight FROM  key_words kw 	"
+			PreparedStatement pp = con
+					.prepareStatement("SELECT wid, SUM(weight) AS weight FROM"
+							+ " (SELECT kw.wid, 0.0 AS weight FROM  key_words kw 	"
 							+ "UNION     SELECT  kw.wid, v.weight FROM  key_words kw, question_vectors v    "
 							+ "WHERE        v.q_id = ? AND kw.wid = v.wid) t GROUP BY wid ORDER BY wid");
 			pp.setInt(1, i);
@@ -182,13 +193,44 @@ public class QnAAccessor {
 			while (result.next()) {
 				double weight = result.getDouble(2);
 				listWeight.add(String.valueOf(weight));
-
 			}
+			System.out.println("question : " + i);
 			int typeID = getQuestionType(i);
 			QuestionVectorCsv vector = new QuestionVectorCsv(listWeight, typeID);
 			data.add(vector);
-
+			result.close();
+			pp.close();
+			con.close();
 		}
 		return data;
+	}
+
+	public static QuestionVectorCsv readQuestionVectorData(int questionID)
+			throws SQLException {
+		;
+		ArrayList<String> listWeight = new ArrayList<>();
+		con = DbConnector.getConnection();
+		PreparedStatement pp = con
+				.prepareStatement("SELECT wid, SUM(weight) AS weight FROM"
+						+ " (SELECT kw.wid, 0.0 AS weight FROM  key_words kw 	"
+						+ "UNION     SELECT  kw.wid, v.weight FROM  key_words kw, question_vectors v    "
+						+ "WHERE        v.q_id = ? AND kw.wid = v.wid) t GROUP BY wid ORDER BY wid");
+		pp.setInt(1, questionID);
+		ResultSet result = pp.executeQuery();
+		while (result.next()) {
+			double weight = result.getDouble(2);
+			listWeight.add(String.valueOf(weight));
+		}
+		System.out.println("question : " + questionID);
+		int typeID = getQuestionType(questionID);
+		QuestionVectorCsv vector =null;
+		if (typeID>0) {
+			vector=	 new QuestionVectorCsv(listWeight, typeID);
+		}
+		result.close();
+		pp.close();
+		con.close();
+
+		return vector;
 	}
 }
