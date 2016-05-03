@@ -10,6 +10,7 @@ public class TestUpdateTFIDF {
 			System.out.println(k.getId());
 			cal.updateIDF(k.getId());
 		}*/
+		//update TFIDF for question
 		for(int i=0; i<3000; i++){
 			cal.updateTFIDF(i);
 			System.out.println(i);

@@ -18,7 +18,8 @@ public class WordAccessor {
 		Set<String> setwords = new HashSet<String>();
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp = con.prepareStatement("select content from key_words");
+			PreparedStatement pp = con
+					.prepareStatement("select content from key_words");
 			ResultSet rs = pp.executeQuery();
 			while (rs.next()) {
 				setwords.add(rs.getString(1).toUpperCase());
@@ -36,7 +37,8 @@ public class WordAccessor {
 		ArrayList<Keyword> listWord = new ArrayList<Keyword>();
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp = con.prepareStatement("select wid,content from key_words order by wid asc");
+			PreparedStatement pp = con
+					.prepareStatement("select wid,content from key_words order by wid asc");
 			ResultSet rs = pp.executeQuery();
 			while (rs.next()) {
 				int wordID = rs.getInt(1);
@@ -80,10 +82,12 @@ public class WordAccessor {
 		int wid = 0;
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp = con.prepareStatement("insert into key_words(content) values (?)");
+			PreparedStatement pp = con
+					.prepareStatement("insert into key_words(content) values (?)");
 			pp.setString(1, keyWord);
 			pp.execute();
-			PreparedStatement pp2 = con.prepareStatement("select max(wid) from key_words");
+			PreparedStatement pp2 = con
+					.prepareStatement("select max(wid) from key_words");
 			ResultSet result = pp2.executeQuery();
 			while (result.next()) {
 				wid = result.getInt(1);
@@ -114,10 +118,12 @@ public class WordAccessor {
 		return wordId;
 	}
 
+	// update word count for question
 	public void updateWordCount(int questionId, int wordId) {
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp = con.prepareStatement("select * from  question_vectors where q_id =? and wid = ?");
+			PreparedStatement pp = con
+					.prepareStatement("select * from  question_vectors where q_id =? and wid = ?");
 			pp.setInt(1, questionId);
 			pp.setInt(2, wordId);
 			ResultSet result = pp.executeQuery();
@@ -149,7 +155,8 @@ public class WordAccessor {
 		int wid = 0;
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp2 = con.prepareStatement("select count(*) from qna_pair");
+			PreparedStatement pp2 = con
+					.prepareStatement("select count(*) from qna_pair");
 			ResultSet result = pp2.executeQuery();
 			while (result.next()) {
 				wid = result.getInt(1);
@@ -170,7 +177,8 @@ public class WordAccessor {
 		int freq = 0;
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp2 = con.prepareStatement("SELECT count(*) FROM question_vectors WHERE wid =?");
+			PreparedStatement pp2 = con
+					.prepareStatement("SELECT count(*) FROM question_vectors WHERE wid =?");
 			pp2.setInt(1, wid);
 			ResultSet result = pp2.executeQuery();
 			while (result.next()) {
@@ -189,7 +197,8 @@ public class WordAccessor {
 	public static void updateIDF(double idf, int wid) {
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp3 = con.prepareStatement("UPDATE key_words SET IDF=? WHERE wid =?");
+			PreparedStatement pp3 = con
+					.prepareStatement("UPDATE key_words SET IDF=? WHERE wid =?");
 			pp3.setDouble(1, idf);
 			pp3.setInt(2, wid);
 			pp3.execute();
@@ -206,7 +215,8 @@ public class WordAccessor {
 		double idf = 0.0;
 		con = DbConnector.getConnection();
 		try {
-			PreparedStatement pp3 = con.prepareStatement("SELECT IDF from key_words WHERE wid =?");
+			PreparedStatement pp3 = con
+					.prepareStatement("SELECT IDF from key_words WHERE wid =?");
 			pp3.setInt(1, wid);
 			ResultSet result = pp3.executeQuery();
 			while (result.next()) {
@@ -219,22 +229,6 @@ public class WordAccessor {
 
 		}
 		return idf;
-	}
-
-	// get frequence of a word in sentences
-	public static void getWord(double idf, int wid) {
-		con = DbConnector.getConnection();
-		try {
-			PreparedStatement pp3 = con.prepareStatement("UPDATE key_words SET IDF=? WHERE wid =?");
-			pp3.setDouble(1, idf);
-			pp3.setInt(2, wid);
-			pp3.execute();
-			pp3.close();
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-
-		}
 	}
 
 	// Get list of question vectors
@@ -251,7 +245,8 @@ public class WordAccessor {
 				int wordID = rs.getInt(2);
 				double weight = rs.getDouble(3);
 				int frq = rs.getInt(4);
-				QuestionVector vector = new QuestionVector(qid, wordID, frq, weight);
+				QuestionVector vector = new QuestionVector(qid, wordID, frq,
+						weight);
 				listVector.add(vector);
 			}
 			con.close();
