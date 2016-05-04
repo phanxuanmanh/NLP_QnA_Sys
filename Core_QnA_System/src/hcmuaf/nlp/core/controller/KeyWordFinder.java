@@ -52,13 +52,8 @@ public class KeyWordFinder {
 				wordAccess = new WordAccessor();
 				VietnameseMaxentTagger tagger = new VietnameseMaxentTagger();
 				try {
-					String tokenizedString = VietnameseMaxentTagger
-							.getTokenizer().segment(str);
-					String[] arr = tokenizedString.split("\\s+");
 					System.out.println("complete split");
-					List<String> words = new ArrayList<String>(
-							Arrays.asList(arr));
-					List<WordTag> list = tagger.tagList(words);
+					List<WordTag> list = tagger.tagText2(str);
 					/*
 					 * for (WordTag wordTag : list) { if
 					 * (!wordTag.tag().equals("R") &&

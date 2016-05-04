@@ -49,7 +49,7 @@ public class WikiContentAccessor {
 		return question;
 	}
 
-	public void updateWordCount(int page_latest, int wordId) {
+	public static void updateWordCount(int page_latest, int wordId) {
 		con = WikiDbConnector.getConnection();
 		try {
 			PreparedStatement pp = con
