@@ -8,11 +8,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class WordAccessor {
 	private static Connection con = null;
+	private static HashMap<String, Integer> listWord;
+
+	public WordAccessor() {
+		listWord = getListkeyWord3();
+	}
+
+	public static HashMap<String, Integer> getListWord() {
+		return listWord;
+	}
+
+	public static void setListWord(HashMap<String, Integer> listWord) {
+		WordAccessor.listWord = listWord;
+	}
 
 	public Set<String> getListkeyWord() {
 		Set<String> setwords = new HashSet<String>();
@@ -45,6 +59,27 @@ public class WordAccessor {
 				String content = rs.getString(2);
 				Keyword kw = new Keyword(content, wordID);
 				listWord.add(kw);
+			}
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+
+		return listWord;
+	}
+
+	public HashMap<String, Integer> getListkeyWord3() {
+		HashMap<String, Integer> listWord = new HashMap<String, Integer>();
+		con = DbConnector.getConnection();
+		try {
+			PreparedStatement pp = con
+					.prepareStatement("select wid,content from key_words order by wid asc");
+			ResultSet rs = pp.executeQuery();
+			while (rs.next()) {
+				int wordID = rs.getInt(1);
+				String content = rs.getString(2);
+				listWord.put(content, new Integer(wordID));
 			}
 			con.close();
 		} catch (SQLException e) {
@@ -92,8 +127,11 @@ public class WordAccessor {
 			while (result.next()) {
 				wid = result.getInt(1);
 			}
-			if (wid > 0)
+			if (wid > 0) {
+				listWord.put(keyWord, new Integer(wid));
 				return wid;
+			}
+
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,17 +143,14 @@ public class WordAccessor {
 	}
 
 	public int getWordId(String keyword) {
-		int wordId = 0;
-		ArrayList<Keyword> listKW = getListkeyWord(keyword);
-		for (Keyword k : listKW) {
-			if (k.getContent().toUpperCase().equals(keyword.toUpperCase())) {
-				wordId = k.getId();
-			}
+		Integer wordId = listWord.get(keyword);
+		if (wordId != null) {
+			return wordId.intValue();
+		} else {
+			int newID = addKeyWord(keyword);
+			return newID;
 		}
-		if (wordId == 0) {
-			wordId = addKeyWord(keyword);
-		}
-		return wordId;
+
 	}
 
 	// update word count for question

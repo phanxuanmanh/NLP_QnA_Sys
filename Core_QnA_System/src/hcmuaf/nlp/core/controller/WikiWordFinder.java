@@ -4,7 +4,6 @@ import java.util.List;
 
 import vn.hus.nlp.tagger.VietnameseMaxentTagger;
 import edu.stanford.nlp.ling.WordTag;
-import hcmuaf.nlp.core.DBConnect.QnAAccessor;
 import hcmuaf.nlp.core.DBConnect.WikiContentAccessor;
 import hcmuaf.nlp.core.DBConnect.WordAccessor;
 
@@ -13,7 +12,12 @@ public class WikiWordFinder {
 			"P", "M", "E", "C", "CC", "I", "T", "X", "Y", "Z" };
 	private static WordAccessor wordAccess;
 
+	public WikiWordFinder() {
+		wordAccess = new WordAccessor();
+	}
+
 	public void conceptStatistic(int page_latest) {
+		WordCounter counter = new WordCounter(page_latest);
 		VietnameseMaxentTagger tagger = new VietnameseMaxentTagger();
 		String concept = WikiContentAccessor.getConceptText(page_latest);
 		if (concept != null) {
@@ -21,10 +25,10 @@ public class WikiWordFinder {
 			for (String str : quesArr) {
 				if (str.length() > 300)
 					continue;
-				wordAccess = new WordAccessor();
 				try {
 					if (str.replaceAll("\\r\\n|\\r|\\n", " ").trim().length() > 2) {
-						List<WordTag> list = tagger.tagText2(str.replaceAll("\\r\\n|\\r|\\n", " ").trim());
+						List<WordTag> list = tagger.tagText2(str.replaceAll(
+								"\\r\\n|\\r|\\n", " ").trim());
 						/*
 						 * for (WordTag wordTag : list) { if
 						 * (!wordTag.tag().equals("R") &&
@@ -38,9 +42,9 @@ public class WikiWordFinder {
 						for (WordTag wordTag : list) {
 							if (isKeyWord(wordTag)) {
 								String wordContent = wordTag.word();
-							System.out.println(wordContent);
-								// int wid = wordAccess.getWordId(wordContent);
-								// / wordAccess.updateWordCount(quesID, wid);
+								int wid = wordAccess.getWordId(wordContent);
+								counter.addWord(wid);
+
 							}
 
 						}
@@ -49,6 +53,7 @@ public class WikiWordFinder {
 					e.printStackTrace();
 				}
 			}
+			counter.updateWordCount();
 		}
 	}
 

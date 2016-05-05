@@ -34,7 +34,7 @@ public class WikiContentAccessor {
 		con = WikiDbConnector.getConnection();
 		try {
 			PreparedStatement pp = con
-					.prepareStatement("SELECT cast(old_text as char(400000) character set utf8) FROM wikidb.text  where old_id =?");
+					.prepareStatement("SELECT cast(old_text as char(600000) character set utf8) FROM wikidb.text  where old_id =?");
 			pp.setInt(1, page_latest);
 			ResultSet result = pp.executeQuery();
 			while (result.next()) {
@@ -49,7 +49,7 @@ public class WikiContentAccessor {
 		return question;
 	}
 
-	public static void updateWordCount(int page_latest, int wordId) {
+	public static void updateWordCount(int page_latest, int wordId, int freq) {
 		con = WikiDbConnector.getConnection();
 		try {
 			PreparedStatement pp = con
@@ -59,9 +59,10 @@ public class WikiContentAccessor {
 			ResultSet result = pp.executeQuery();
 			if (result.next()) {
 				PreparedStatement pp3 = con
-						.prepareStatement("update concepts_words set freq =freq+ 1  where page_id =? and word_id = ?");
+						.prepareStatement("update concepts_words set freq =freq+ 1  where page_id =? and word_id = ? and freq = ?");
 				pp3.setInt(1, page_latest);
 				pp3.setInt(2, wordId);
+				pp3.setInt(3, freq);
 				pp3.execute();
 				pp3.close();
 			} else {
@@ -69,7 +70,7 @@ public class WikiContentAccessor {
 						.prepareStatement("insert into concepts_words(page_id,word_id,freq) values (?,?,?)");
 				pp2.setInt(1, page_latest);
 				pp2.setInt(2, wordId);
-				pp2.setInt(3, 1);
+				pp2.setInt(3, freq);
 				pp2.execute();
 				pp2.close();
 			}

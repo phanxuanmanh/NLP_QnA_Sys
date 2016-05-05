@@ -2,8 +2,6 @@ package hcmuaf.nlp.core.controller;
 
 import hcmuaf.nlp.core.DBConnect.QnAAccessor;
 import hcmuaf.nlp.core.DBConnect.WordAccessor;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
