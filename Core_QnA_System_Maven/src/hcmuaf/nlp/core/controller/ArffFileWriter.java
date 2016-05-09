@@ -1,6 +1,7 @@
 package hcmuaf.nlp.core.controller;
 
-import hcmuaf.nlp.core.DBConnect.WordAccessor;
+import hcmuaf.nlp.core.dao.KeyWordDao;
+import hcmuaf.nlp.core.jdbcDao.impl.KeyWordDaoImpl;
 import hcmuaf.nlp.core.model.Keyword;
 
 import java.io.File;
@@ -29,8 +30,9 @@ public class ArffFileWriter {
 
 	public void writeDataToFile(String fileName, int[] listQuestionID)
 			throws IOException, SQLException {
+		KeyWordDao keyWordDao = new KeyWordDaoImpl();
 		CsvDataWriter writer = new CsvDataWriter();
-		ArrayList<Keyword> liskw = WordAccessor.getListkeyWord2();
+		ArrayList<Keyword> liskw = keyWordDao.getListkeyWord2();
 		String[] header = new String[liskw.size() + 1];
 		for (int i = 0; i < header.length - 1; i++) {
 			header[i] = "Attr " + liskw.get(i).getId();

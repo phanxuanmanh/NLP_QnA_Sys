@@ -1,8 +1,7 @@
 package hcmuaf.nlp.core.wiki;
-
-import hcmuaf.nlp.core.DBConnect.WikiContentAccessor;
-import hcmuaf.nlp.core.DBConnect.WordAccessor;
 import hcmuaf.nlp.core.controller.WikiWordFinder;
+import hcmuaf.nlp.core.dao.WikiConceptDao;
+import hcmuaf.nlp.core.jdbcDao.impl.WikiConceptDaoImpl;
 
 import java.util.ArrayList;
 
@@ -11,10 +10,11 @@ import vn.hus.nlp.tagger.VietnameseMaxentTagger;
 public class TestWikiWord {
 	public static void main(String[] args) {
 		long start = System.currentTimeMillis();
-		WikiWordFinder finder = new WikiWordFinder(new WordAccessor(),
+		WikiConceptDao conceptDao = new WikiConceptDaoImpl();
+		WikiWordFinder finder = new WikiWordFinder(
 				new VietnameseMaxentTagger());
-		ArrayList<Integer> listPage = WikiContentAccessor.getConCeptList();
-		for (int i = 5; i < 7; i++)
+		ArrayList<Integer> listPage = conceptDao.getConCeptList();
+		for (int i = 5; i < 6; i++)
 			finder.conceptStatistic(listPage.get(i));
 
 		long end = System.currentTimeMillis();

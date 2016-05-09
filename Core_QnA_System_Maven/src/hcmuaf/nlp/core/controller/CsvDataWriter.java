@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.opencsv.CSVWriter;
-
-import hcmuaf.nlp.core.DBConnect.QnAAccessor;
+import hcmuaf.nlp.core.dao.QuestionVectorDao;
+import hcmuaf.nlp.core.jdbcDao.impl.QuestionVectorDaoImpl;
 import hcmuaf.nlp.core.model.QuestionVectorCsv;
 
 public class CsvDataWriter {
@@ -34,12 +34,13 @@ public class CsvDataWriter {
 
 	public void writePerLineToCSV(String fileName, int[] data, String[] header)
 			throws IOException, SQLException {
+		QuestionVectorDao vectorDao = new QuestionVectorDaoImpl();
 		BufferedWriter bfw = new BufferedWriter(new FileWriter(new File(
 				fileName)));
 		CSVWriter writer = new CSVWriter(bfw);
 		writer.writeNext(header);
 		for (int qid : data) {
-			QuestionVectorCsv vector = QnAAccessor.readQuestionVectorData(qid);
+			QuestionVectorCsv vector = vectorDao.readQuestionVectorData(qid);
 			if (vector != null) {
 				ArrayList<String> listWeight = vector.getWeightArr();
 				listWeight.add("Class" + vector.getClassID());

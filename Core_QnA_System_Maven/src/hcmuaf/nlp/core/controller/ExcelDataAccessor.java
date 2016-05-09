@@ -1,7 +1,9 @@
 package hcmuaf.nlp.core.controller;
-
-import hcmuaf.nlp.core.DBConnect.QnAAccessor;
+import hcmuaf.nlp.core.dao.QnADao;
+import hcmuaf.nlp.core.dao.QuestionTypeDao;
 import hcmuaf.nlp.core.dto.QnAPair;
+import hcmuaf.nlp.core.jdbcDao.impl.QnADaoImpl;
+import hcmuaf.nlp.core.jdbcDao.impl.QuestionTypeDaoImpl;
 import hcmuaf.nlp.core.model.QuestionType;
 
 import java.io.File;
@@ -18,13 +20,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelDataAccessor {
 	private static ArrayList<QuestionType> typeList;
-	QnAAccessor qnaAccess;
+	QnADao qnaDao = new QnADaoImpl();
+	QuestionTypeDao questionTypeDao = new QuestionTypeDaoImpl();
 	ArrayList<QnAPair> listQnA = new ArrayList<QnAPair>();
 	int column = 0;
 
 	public ExcelDataAccessor() {
-		qnaAccess = new QnAAccessor();
-		typeList = qnaAccess.getTypeList();
+		typeList = questionTypeDao.getTypeList();
 	}
 
 	public void readExcelFile(String excelFilePath) throws IOException {
@@ -67,13 +69,13 @@ public class ExcelDataAccessor {
 
 		workbook.close();
 		inputStream.close();
-		for(QnAPair p : listQnA){
-			if (p.getQuestion() != null && p.getAnswer() != null && p.getTypeID()>0) {
+		for (QnAPair p : listQnA) {
+			if (p.getQuestion() != null && p.getAnswer() != null
+					&& p.getTypeID() > 0) {
 				System.out.println(p.toString());
-				qnaAccess.insertQnAPair(p);
+				qnaDao.insertQnAPair(p);
 			}
 		}
-		
-		
+
 	}
 }

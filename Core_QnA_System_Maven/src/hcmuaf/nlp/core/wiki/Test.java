@@ -3,8 +3,6 @@ package hcmuaf.nlp.core.wiki;
 import hcmuaf.nlp.core.model.WordCounterItem;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Test {
 	public static void main(String[] args) {

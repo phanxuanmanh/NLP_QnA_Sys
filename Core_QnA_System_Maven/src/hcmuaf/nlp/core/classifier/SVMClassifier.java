@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import hcmuaf.nlp.core.DBConnect.QnAAccessor;
 import hcmuaf.nlp.core.controller.ArffFileWriter;
+import hcmuaf.nlp.core.dao.QuestionDao;
+import hcmuaf.nlp.core.jdbcDao.impl.QuestionDaoImpl;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.SMO;
@@ -39,7 +40,8 @@ public class SVMClassifier {
 		System.out.println(strSummary);
 	}
 	public static void writeDataToFile(String trainFile, String testFile, double percentToTrain) throws IOException, SQLException{
-		ArrayList<Integer> listQuestion = QnAAccessor.getQuestionList();
+		QuestionDao questionDao = new QuestionDaoImpl();
+		ArrayList<Integer> listQuestion = questionDao.getQuestionList();
 		int dataSize = listQuestion.size();
 		int betweenIndex = (int) (dataSize * percentToTrain);
 		int[] trainQues = new int[betweenIndex];

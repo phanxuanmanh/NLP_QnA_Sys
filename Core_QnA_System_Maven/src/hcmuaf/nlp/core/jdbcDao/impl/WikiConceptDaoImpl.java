@@ -1,4 +1,4 @@
-package hcmuaf.nlp.core.DBConnect;
+package hcmuaf.nlp.core.jdbcDao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,12 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class WikiContentAccessor {
-	private static Connection con = null;
+import hcmuaf.nlp.core.DBConnect.WikiDbConnector;
+import hcmuaf.nlp.core.dao.WikiConceptDao;
 
-	public static ArrayList<Integer> getConCeptList() {
+public class WikiConceptDaoImpl implements WikiConceptDao {
+
+	@Override
+	public ArrayList<Integer> getConCeptList() {
 		ArrayList<Integer> listID = new ArrayList<>();
-		con = WikiDbConnector.getConnection();
+		Connection con = WikiDbConnector.getConnection();
 		try {
 			PreparedStatement pp = con
 					.prepareStatement("SELECT page_latest FROM wikidb.page  where page_len>200");
@@ -29,9 +32,10 @@ public class WikiContentAccessor {
 		return listID;
 	}
 
-	public static String getConceptText(int page_latest) {
+	@Override
+	public String getConceptText(int page_latest) {
 		String question = null;
-		con = WikiDbConnector.getConnection();
+		Connection con = WikiDbConnector.getConnection();
 		try {
 			PreparedStatement pp = con
 					.prepareStatement("SELECT cast(old_text as char(600000) character set utf8) FROM wikidb.text  where old_id =?");
@@ -49,8 +53,9 @@ public class WikiContentAccessor {
 		return question;
 	}
 
-	public static void updateWordCount(int page_latest, int wordId, int freq) {
-		con = WikiDbConnector.getConnection();
+	@Override
+	public void updateWordCount(int page_latest, int wordId, int freq) {
+		Connection con = WikiDbConnector.getConnection();
 		try {
 			PreparedStatement pp = con
 					.prepareStatement("select * from  concepts_words where page_id =? and word_id = ?");
@@ -79,5 +84,7 @@ public class WikiContentAccessor {
 			e.printStackTrace();
 
 		}
+
 	}
+
 }

@@ -5,24 +5,26 @@ import java.util.List;
 
 import vn.hus.nlp.tagger.VietnameseMaxentTagger;
 import edu.stanford.nlp.ling.WordTag;
-import hcmuaf.nlp.core.DBConnect.WikiContentAccessor;
-import hcmuaf.nlp.core.DBConnect.WordAccessor;
+import hcmuaf.nlp.core.dao.KeyWordDao;
+import hcmuaf.nlp.core.dao.WikiConceptDao;
+import hcmuaf.nlp.core.jdbcDao.impl.KeyWordDaoImpl;
+import hcmuaf.nlp.core.jdbcDao.impl.WikiConceptDaoImpl;
 
 public class WikiWordFinder {
 	private static final String[] listTag = { "Np", "Nc", "Nu", "N", "V", "A",
 			"P", "M", "E", "C", "CC", "I", "T", "X", "Y", "Z" };
-	private WordAccessor wordAccess;
 	private VietnameseMaxentTagger tagger;
 
-	public WikiWordFinder(WordAccessor wordAccess, VietnameseMaxentTagger tagger) {
-		this.wordAccess = wordAccess;
+	public WikiWordFinder( VietnameseMaxentTagger tagger) {
 		this.tagger = tagger;
 	}
 
 	public void conceptStatistic(int page_latest) {
+		WikiConceptDao conceptDao = new WikiConceptDaoImpl();
 		System.out.println("start on page id: " + page_latest);
 		WordCounter counter = new WordCounter(page_latest);
-		String concept = WikiContentAccessor.getConceptText(page_latest);
+		String concept = conceptDao.getConceptText(page_latest);
+		KeyWordDao keyWordDao = new KeyWordDaoImpl();
 		if (concept != null) {
 			String[] quesArr = concept.split("\\.");
 			for (String str : quesArr) {
@@ -48,7 +50,7 @@ public class WikiWordFinder {
 									String wordContent = wordTag.word();
 									int wid;
 									try {
-										wid = wordAccess.getWordId(wordContent);
+										wid = keyWordDao.getWordId(wordContent);
 										counter.addWord(wid);
 									} catch (SQLException e) {
 										System.out
