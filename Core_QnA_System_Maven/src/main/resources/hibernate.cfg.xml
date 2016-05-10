@@ -18,5 +18,6 @@
 
 		<mapping class="hcmuaf.nlp.core.model.Question" />
 		<mapping class="hcmuaf.nlp.core.model.Answer" />
+		<mapping class="hcmuaf.nlp.core.model.WikiPageContent" />
 	</session-factory>
 </hibernate-configuration>
