@@ -24,10 +24,6 @@ public class WordAccessor {
 		return listWord;
 	}
 
-	public static void setListWord(HashMap<String, Integer> listWord) {
-		WordAccessor.listWord = listWord;
-	}
-
 	public Set<String> getListkeyWord() {
 		Set<String> setwords = new HashSet<String>();
 		con = DbConnector.getConnection();
@@ -113,36 +109,30 @@ public class WordAccessor {
 		return listWord;
 	}
 
-	public int addKeyWord(String keyWord) {
+	public int addKeyWord(String keyWord) throws SQLException {
 		int wid = 0;
 		con = DbConnector.getConnection();
-		try {
-			PreparedStatement pp = con
-					.prepareStatement("insert into key_words(content) values (?)");
-			pp.setString(1, keyWord);
-			pp.execute();
-			PreparedStatement pp2 = con
-					.prepareStatement("select max(wid) from key_words");
-			ResultSet result = pp2.executeQuery();
-			while (result.next()) {
-				wid = result.getInt(1);
-			}
-			if (wid > 0) {
-				listWord.put(keyWord, new Integer(wid));
-				return wid;
-			}
-
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return 0;
-
+		PreparedStatement pp = con
+				.prepareStatement("insert into key_words(content) values (?)");
+		pp.setString(1, keyWord);
+		pp.execute();
+		PreparedStatement pp2 = con
+				.prepareStatement("select max(wid) from key_words");
+		ResultSet result = pp2.executeQuery();
+		while (result.next()) {
+			wid = result.getInt(1);
 		}
+		if (wid > 0) {
+			listWord.put(keyWord, new Integer(wid));
+			return wid;
+		}
+
+		con.close();
 		return wid;
 
 	}
 
-	public int getWordId(String keyword) {
+	public int getWordId(String keyword) throws SQLException {
 		Integer wordId = listWord.get(keyword);
 		if (wordId != null) {
 			return wordId.intValue();

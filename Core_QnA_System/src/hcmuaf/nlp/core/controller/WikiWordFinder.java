@@ -1,5 +1,6 @@
 package hcmuaf.nlp.core.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import vn.hus.nlp.tagger.VietnameseMaxentTagger;
@@ -10,15 +11,17 @@ import hcmuaf.nlp.core.DBConnect.WordAccessor;
 public class WikiWordFinder {
 	private static final String[] listTag = { "Np", "Nc", "Nu", "N", "V", "A",
 			"P", "M", "E", "C", "CC", "I", "T", "X", "Y", "Z" };
-	private static WordAccessor wordAccess;
+	private WordAccessor wordAccess;
+	private VietnameseMaxentTagger tagger;
 
-	public WikiWordFinder() {
-		wordAccess = new WordAccessor();
+	public WikiWordFinder(WordAccessor wordAccess, VietnameseMaxentTagger tagger) {
+		this.wordAccess = wordAccess;
+		this.tagger = tagger;
 	}
 
 	public void conceptStatistic(int page_latest) {
+		System.out.println("start on page id: " + page_latest);
 		WordCounter counter = new WordCounter(page_latest);
-		VietnameseMaxentTagger tagger = new VietnameseMaxentTagger();
 		String concept = WikiContentAccessor.getConceptText(page_latest);
 		if (concept != null) {
 			String[] quesArr = concept.split("\\.");
@@ -39,21 +42,33 @@ public class WikiWordFinder {
 						 * wordAccess.getWordId(wordTag.word());
 						 * wordAccess.updateWordCount(quesID, wid); } }
 						 */
-						for (WordTag wordTag : list) {
-							if (isKeyWord(wordTag)) {
-								String wordContent = wordTag.word();
-								int wid = wordAccess.getWordId(wordContent);
-								counter.addWord(wid);
+						if (list!=null) {
+							for (WordTag wordTag : list) {
+								if (isKeyWord(wordTag)) {
+									String wordContent = wordTag.word();
+									int wid;
+									try {
+										wid = wordAccess.getWordId(wordContent);
+										counter.addWord(wid);
+									} catch (SQLException e) {
+										System.out
+												.println("word is not available : "
+														+ wordContent);
+									}
+
+								}
 
 							}
-
 						}
 					}
 				} catch (NullPointerException e) {
 					e.printStackTrace();
+				}catch (StringIndexOutOfBoundsException e) {
+					System.out.println("some error in tagging");
 				}
 			}
 			counter.updateWordCount();
+
 		}
 	}
 
