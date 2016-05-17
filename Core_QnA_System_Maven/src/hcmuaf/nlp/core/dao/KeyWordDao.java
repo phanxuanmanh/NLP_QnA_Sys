@@ -17,4 +17,5 @@ public interface KeyWordDao {
 	public  int numOfQuestionContainWord(int wid);
 	public  void updateIDF(double idf, int wid);
 	public  double getIDF(int wid);
+	public Keyword getKeyWord(int wid);
 }

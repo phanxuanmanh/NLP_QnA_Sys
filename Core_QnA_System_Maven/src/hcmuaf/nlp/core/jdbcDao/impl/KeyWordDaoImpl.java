@@ -74,7 +74,9 @@ public class KeyWordDaoImpl implements KeyWordDao {
 			while (rs.next()) {
 				int wordID = rs.getInt(1);
 				String content = rs.getString(2);
-				Keyword kw = new Keyword(content, wordID);
+				Keyword kw = new Keyword();
+				kw.setId(wordID);
+				kw.setContent(content);
 				listWord.add(kw);
 			}
 			con.close();
@@ -191,7 +193,9 @@ public class KeyWordDaoImpl implements KeyWordDao {
 			while (rs.next()) {
 				int wordID = rs.getInt(1);
 				String content = rs.getString(2);
-				Keyword kw = new Keyword(content, wordID);
+				Keyword kw = new Keyword();
+				kw.setId(wordID);
+				kw.setContent(content);
 				listWord.add(kw);
 			}
 			con.close();
@@ -201,6 +205,12 @@ public class KeyWordDaoImpl implements KeyWordDao {
 		}
 
 		return listWord;
+	}
+
+	@Override
+	public Keyword getKeyWord(int wid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -97,14 +97,14 @@ public class QuestionDaoImpl implements QuestionDao {
 	}
 
 	@Override
-	public int insertQuestion(String question) {
+	public int insertQuestion(String question,int typeID) {
 		Connection con = DbConnector.getConnection();
 		int qid = 0;
 		try {
 			PreparedStatement pp_getid = con
 					.prepareStatement("select max(q_id) from questions");
 			PreparedStatement pp_insert = con
-					.prepareStatement("insert into questions(q_id, q_content) values (?,?)");
+					.prepareStatement("insert into questions(q_id, q_content,type_id) values (?,?,?)");
 
 			ResultSet rs_getid = pp_getid.executeQuery();
 			while (rs_getid.next()) {
@@ -112,6 +112,7 @@ public class QuestionDaoImpl implements QuestionDao {
 			}
 			pp_insert.setInt(1, qid);
 			pp_insert.setString(2, question);
+			pp_insert.setInt(3, typeID);
 			pp_insert.execute();
 			con.close();
 		} catch (SQLException e) {

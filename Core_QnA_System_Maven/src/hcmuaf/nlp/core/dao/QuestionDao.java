@@ -12,7 +12,7 @@ public interface QuestionDao {
 
 	public String getQuestion(int qId);
 
-	public int insertQuestion(String question);
+	public int insertQuestion(String question,int typeID);
 
 	public QuestionVectorCsv readQuestionVectorData(int questionID) throws SQLException;
 

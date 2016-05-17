@@ -19,11 +19,7 @@ public class Keyword {
 	@Column(name = "idf")
 	private double idf;
 
-	public Keyword(String content, int id) {
-		super();
-		this.content = content;
-		this.id = id;
-	}
+
 
 	public String getContent() {
 		return content;

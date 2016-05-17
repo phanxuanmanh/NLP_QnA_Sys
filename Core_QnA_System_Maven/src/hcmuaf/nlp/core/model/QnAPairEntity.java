@@ -2,17 +2,17 @@ package hcmuaf.nlp.core.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "QNA_PAIR")
 public class QnAPairEntity {
+	@Id
 	@Column(name = "q_id")
 	private int question;
 	@Column(name = "a_id")
 	private int answer;
-	@Column(name = "type_id")
-	private int typeID;
 
 	public int getQuestion() {
 		return question;
@@ -30,12 +30,5 @@ public class QnAPairEntity {
 		this.answer = answer;
 	}
 
-	public int getTypeID() {
-		return typeID;
-	}
-
-	public void setTypeID(int typeID) {
-		this.typeID = typeID;
-	}
-
+	
 }

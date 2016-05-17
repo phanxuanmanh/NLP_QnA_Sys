@@ -17,6 +17,10 @@ public class QuestionType {
 	@Column(name = "type_name")
 	private String typeName;
 
+	public QuestionType() {
+
+	}
+
 	public QuestionType(int typeID, String typeName) {
 		super();
 		this.typeID = typeID;

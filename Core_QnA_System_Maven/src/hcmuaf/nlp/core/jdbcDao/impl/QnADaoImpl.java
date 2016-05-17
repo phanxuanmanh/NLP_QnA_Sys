@@ -13,15 +13,14 @@ import hcmuaf.nlp.core.dto.QnAPair;
 public class QnADaoImpl implements QnADao {
 
 	@Override
-	public boolean insertQnAPair(QnAPair pair) {
+	public void insertQnAPair(QnAPair pair) {
 		QuestionDao questionDao = new QuestionDaoImpl();
 		AnswerDao answerDao = new AnswerDaoImpl();
 		Connection con = DbConnector.getConnection();
-		int q_id = questionDao.insertQuestion(pair.getQuestion());
+		int q_id = questionDao.insertQuestion(pair.getQuestion(),pair.getTypeID());
 		int a_id = answerDao.insertAnswer(pair.getAnswer());
 		if (q_id == 0 || a_id == 0) {
 			System.out.println("inser error");
-			return false;
 		} else {
 
 			try {
@@ -34,12 +33,10 @@ public class QnADaoImpl implements QnADao {
 				con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return false;
 
 			}
 		}
 
-		return true;
 	}
 
 }

@@ -1,43 +1,48 @@
 package hcmuaf.nlp.core.model;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "QUESTION_VECTORS")
 public class QuestionVector {
-	@Column(name = "q_id")
-	private int questionID;
-	@Column(name = "wid")
-	private int wordID;
-	@Column(name = "weight")
-	private int freq;
+	@EmbeddedId
+	private QuestionWordPair qwPair;
 	@Column(name = "freq")
+	private int freq;
+	@Column(name = "weight")
 	private double tfidf;
 
 	public QuestionVector(int questionID, int wordID, int freq, double tfidf) {
 		super();
-		this.questionID = questionID;
-		this.wordID = wordID;
+		QuestionWordPair pair = new QuestionWordPair();
+		pair.setQuestionID(questionID);
+		pair.setWordID(wordID);
+		this.qwPair = pair;
 		this.freq = freq;
 		this.tfidf = tfidf;
 	}
 
+	public QuestionVector() {
+		qwPair = new QuestionWordPair();
+	}
+
 	public int getQuestionID() {
-		return questionID;
+		return qwPair.getQuestionID();
 	}
 
 	public void setQuestionID(int questionID) {
-		this.questionID = questionID;
+		this.qwPair.setQuestionID(questionID);
 	}
 
 	public int getWordID() {
-		return wordID;
+		return qwPair.getWordID();
 	}
 
 	public void setWordID(int wordID) {
-		this.wordID = wordID;
+		this.qwPair.setWordID(wordID);
 	}
 
 	public int getFreq() {

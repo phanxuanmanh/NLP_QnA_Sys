@@ -14,10 +14,17 @@
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="hibernate.current_session_context_class">thread</property>
-		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.show_sql">false</property>
 
 		<mapping class="hcmuaf.nlp.core.model.Question" />
 		<mapping class="hcmuaf.nlp.core.model.Answer" />
+		<mapping class="hcmuaf.nlp.core.model.QuestionVector" />
+		<mapping class="hcmuaf.nlp.core.model.QuestionType" />
+		<mapping class="hcmuaf.nlp.core.model.Keyword" />
 		<mapping class="hcmuaf.nlp.core.model.WikiPageContent" />
+		<mapping class="hcmuaf.nlp.core.model.QnAPairEntity" />
+		<mapping class="hcmuaf.nlp.core.model.QuestionWordPair" />
+		<mapping class="hcmuaf.nlp.core.model.WikiConceptWord" />
+		<mapping class="hcmuaf.nlp.core.model.ConceptWordPair" />
 	</session-factory>
 </hibernate-configuration>
