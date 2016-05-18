@@ -87,4 +87,10 @@ public class WikiConceptDaoImpl implements WikiConceptDao {
 
 	}
 
+	@Override
+	public String getPageTitle(int pageID) {
+		
+		return null;
+	}
+
 }

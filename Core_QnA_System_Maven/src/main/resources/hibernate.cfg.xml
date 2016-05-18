@@ -23,6 +23,7 @@
 		<mapping class="hcmuaf.nlp.core.model.Keyword" />
 		<mapping class="hcmuaf.nlp.core.model.WikiPageContent" />
 		<mapping class="hcmuaf.nlp.core.model.QnAPairEntity" />
+		<mapping class="hcmuaf.nlp.core.model.WikiPage" />
 		<mapping class="hcmuaf.nlp.core.model.QuestionWordPair" />
 		<mapping class="hcmuaf.nlp.core.model.WikiConceptWord" />
 		<mapping class="hcmuaf.nlp.core.model.ConceptWordPair" />

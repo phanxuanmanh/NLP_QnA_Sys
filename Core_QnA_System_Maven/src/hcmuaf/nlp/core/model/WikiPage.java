@@ -18,6 +18,8 @@ public class WikiPage {
 	private int pageLatest;
 	@Column(name = "page_len")
 	private int pageLen;
+	@Column(name = "page_title")
+	private String title;
 	@Column(name = "page_is_redirect")
 	private boolean isRedirect;
 
@@ -51,6 +53,14 @@ public class WikiPage {
 
 	public void setRedirect(boolean isRedirect) {
 		this.isRedirect = isRedirect;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

@@ -3,6 +3,7 @@ package hcmuaf.nlp.core.hibernateDao.impl;
 import hcmuaf.nlp.core.dao.WikiConceptDao;
 import hcmuaf.nlp.core.model.ConceptWordPair;
 import hcmuaf.nlp.core.model.WikiConceptWord;
+import hcmuaf.nlp.core.model.WikiPage;
 import hcmuaf.nlp.core.util.HibernateUtil;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 public class WikiConceptDaoImpl implements WikiConceptDao {
 	SessionFactory sessionFactory;
@@ -59,6 +62,18 @@ public class WikiConceptDaoImpl implements WikiConceptDao {
 		vector.setFreq(vector.getFreq() + 1);
 		session.update(vector);
 		tx.commit();
+	}
+
+	@Override
+	public String getPageTitle(int pageID) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String content = (String) session.createCriteria(WikiPage.class)
+				.add(Restrictions.eq("pageID", pageID))
+				.setProjection(Projections.property("title")).uniqueResult();
+		tx.commit();
+		return content;
 	}
 
 }

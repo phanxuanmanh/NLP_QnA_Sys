@@ -8,4 +8,6 @@ public interface WikiConceptDao {
 	public String getConceptText(int page_latest);
 
 	public void updateWordCount(int page_latest, int wordId, int freq);
+
+	public String getPageTitle(int pageID);
 }
