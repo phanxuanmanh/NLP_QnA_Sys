@@ -5,7 +5,11 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "QUESTION_VECTORS")
 public class QuestionVector {
 	@EmbeddedId

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import hcmuaf.nlp.core.DBConnect.WikiDbConnector;
 import hcmuaf.nlp.core.dao.WikiConceptDao;
+import hcmuaf.nlp.core.model.WikiPage;
 
 public class WikiConceptDaoImpl implements WikiConceptDao {
 
@@ -91,6 +92,18 @@ public class WikiConceptDaoImpl implements WikiConceptDao {
 	public String getPageTitle(int pageID) {
 		
 		return null;
+	}
+
+	@Override
+	public WikiPage getPage(int pageId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updatePage(WikiPage wikiPage) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

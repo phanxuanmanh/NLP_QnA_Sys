@@ -1,4 +1,4 @@
-package hcmuaf.nlp.core.model;
+package hcmuaf.nlp.core.dto;
 
 public class WordCounterItem {
 	private int wordID;

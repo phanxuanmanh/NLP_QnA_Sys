@@ -18,16 +18,20 @@ import org.hibernate.Transaction;
 
 public class KeyWordDaoImpl implements KeyWordDao {
 	SessionFactory sessionFactory;
-	Session session ;
+	Session session;
+	private static HashMap<String, Integer> listWord;
 
 	public KeyWordDaoImpl() {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		session = sessionFactory.getCurrentSession();
+		listWord = getListWord();
 	}
 
 	@Override
 	public HashMap<String, Integer> getListWord() {
 		HashMap<String, Integer> listWord = new HashMap<String, Integer>();
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session
 				.createSQLQuery("select wid,content from key_words order by wid asc");
@@ -36,7 +40,7 @@ public class KeyWordDaoImpl implements KeyWordDao {
 		for (Object[] row : rows) {
 			int wordID = Integer.parseInt(row[0].toString());
 			String content = row[1].toString();
-			listWord.put(content, new Integer(wordID));
+			listWord.put(content.toUpperCase(), new Integer(wordID));
 		}
 		tx.commit();
 		return listWord;
@@ -44,6 +48,8 @@ public class KeyWordDaoImpl implements KeyWordDao {
 
 	@Override
 	public Set<String> getListkeyWord() {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		Set<String> setwords = new HashSet<String>();
 		Transaction tx = session.beginTransaction();
 		Query query = session.createSQLQuery("select content from key_words");
@@ -59,6 +65,8 @@ public class KeyWordDaoImpl implements KeyWordDao {
 
 	@Override
 	public ArrayList<Keyword> getListkeyWord2() {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		ArrayList<Keyword> setwords = new ArrayList<Keyword>();
 		Transaction tx = session.beginTransaction();
 		Query query = session
@@ -104,6 +112,8 @@ public class KeyWordDaoImpl implements KeyWordDao {
 
 	@Override
 	public int addKeyWord(String keyWord) throws SQLException {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		Keyword word = new Keyword();
 		word.setContent(keyWord);
@@ -114,17 +124,21 @@ public class KeyWordDaoImpl implements KeyWordDao {
 
 	@Override
 	public int getWordId(String keyword) throws SQLException {
-		ArrayList<Keyword> listWord = getListkeyWord(keyword);
-		for (Keyword kw : listWord) {
-			if (kw.getContent().equalsIgnoreCase(keyword)) {
-				return kw.getId();
-			}
+		Integer wordId = listWord.get(keyword.toUpperCase());
+		if (wordId != null) {
+			return wordId.intValue();
+		} else {
+			int newID = addKeyWord(keyword);
+			listWord.put(keyword.toUpperCase(), Integer.valueOf(newID));
+			return newID;
 		}
-		return 0;
+
 	}
 
 	@Override
 	public int numOfQuestionContainWord(int wid) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session
 				.createSQLQuery("SELECT count(*) FROM question_vectors WHERE wid =:wordID");
@@ -138,6 +152,8 @@ public class KeyWordDaoImpl implements KeyWordDao {
 
 	@Override
 	public void updateIDF(double idf, int wid) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		Keyword word = getKeyWord(wid);
 		word.setIdf(idf);
@@ -147,6 +163,8 @@ public class KeyWordDaoImpl implements KeyWordDao {
 
 	@Override
 	public double getIDF(int wid) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session
 				.createSQLQuery("SELECT IDF from key_words WHERE wid =:wordID");
@@ -160,8 +178,9 @@ public class KeyWordDaoImpl implements KeyWordDao {
 
 	@Override
 	public Keyword getKeyWord(int wid) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		Keyword keyWord = (Keyword) session.get(Keyword.class, wid);
-
 		return keyWord;
 	}
 

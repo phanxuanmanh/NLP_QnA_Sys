@@ -12,14 +12,18 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@Table(name = "ANSWERS")
-public class Answer {
+@Table(name = "INVERTED_INDEX")
+public class WikiInvertedIndex {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "a_id")
+	@Column(name = "id")
 	private int id;
-	@Column(name = "a_content")
-	private String content;
+	@Column(name = "page_id")
+	private int pageId;
+	@Column(name = "word_id")
+	private int wordId;
+	@Column(name = "weight")
+	private double weight;
 
 	public int getId() {
 		return id;
@@ -29,12 +33,28 @@ public class Answer {
 		this.id = id;
 	}
 
-	public String getContent() {
-		return content;
+	public int getPageId() {
+		return pageId;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setPageId(int pageId) {
+		this.pageId = pageId;
+	}
+
+	public int getWordId() {
+		return wordId;
+	}
+
+	public void setWordId(int wordId) {
+		this.wordId = wordId;
+	}
+
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
 	}
 
 }

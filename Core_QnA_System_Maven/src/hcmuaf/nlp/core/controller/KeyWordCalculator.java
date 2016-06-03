@@ -22,7 +22,7 @@ public class KeyWordCalculator {
 		int questionContainWord = questionDao.numOfQuestionContainWord(wid);
 		double idf = 0.0;
 		if (questionContainWord > 0) {
-			idf = Math.log10(numOfQuestion / questionContainWord);
+			idf = Math.log10((double)numOfQuestion / questionContainWord);
 		}
 		try {
 			if (idf > 0) {

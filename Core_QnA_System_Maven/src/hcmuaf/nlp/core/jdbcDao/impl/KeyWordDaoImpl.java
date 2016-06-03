@@ -30,7 +30,7 @@ public class KeyWordDaoImpl implements KeyWordDao {
 			ResultSet rs = pp.executeQuery();
 			while (rs.next()) {
 				int wordID = rs.getInt(1);
-				String content = rs.getString(2);
+				String content = rs.getString(2).toUpperCase();
 				listWord.put(content, new Integer(wordID));
 			}
 			con.close();
@@ -113,7 +113,7 @@ public class KeyWordDaoImpl implements KeyWordDao {
 
 	@Override
 	public int getWordId(String keyword) throws SQLException {
-		Integer wordId = listWord.get(keyword);
+		Integer wordId = listWord.get(keyword.toUpperCase());
 		if (wordId != null) {
 			return wordId.intValue();
 		} else {

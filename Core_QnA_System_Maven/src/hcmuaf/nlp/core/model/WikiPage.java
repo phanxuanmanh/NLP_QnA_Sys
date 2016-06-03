@@ -7,7 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "PAGE")
 public class WikiPage {
 	@Id
@@ -22,6 +26,8 @@ public class WikiPage {
 	private String title;
 	@Column(name = "page_is_redirect")
 	private boolean isRedirect;
+	@Column(name = "page_in_process")
+	private boolean pageInProcess;
 
 	public int getPageID() {
 		return pageID;
@@ -61,6 +67,14 @@ public class WikiPage {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public boolean isPageInProcess() {
+		return pageInProcess;
+	}
+
+	public void setPageInProcess(boolean pageInProcess) {
+		this.pageInProcess = pageInProcess;
 	}
 
 }

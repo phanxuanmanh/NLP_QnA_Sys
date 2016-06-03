@@ -1,15 +1,24 @@
 package hcmuaf.nlp.core.model;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+/*@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)*/
 @Table(name = "CONCEPTS_WORDS")
 public class WikiConceptWord {
-	@EmbeddedId
-	private ConceptWordPair cwPair;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
+	@Column(name = "page_id")
+	private int pageId;
+	@Column(name = "word_id")
+	private int wordId;
 	@Column(name = "freq")
 	private int freq;
 	@Column(name = "tfidf")
@@ -19,12 +28,20 @@ public class WikiConceptWord {
 		super();
 	}
 
-	public ConceptWordPair getCwPair() {
-		return cwPair;
+	public int getPageId() {
+		return pageId;
 	}
 
-	public void setCwPair(ConceptWordPair cwPair) {
-		this.cwPair = cwPair;
+	public void setPageId(int pageId) {
+		this.pageId = pageId;
+	}
+
+	public int getWordId() {
+		return wordId;
+	}
+
+	public void setWordId(int wordId) {
+		this.wordId = wordId;
 	}
 
 	public int getFreq() {
@@ -41,6 +58,14 @@ public class WikiConceptWord {
 
 	public void setTfidf(double tfidf) {
 		this.tfidf = tfidf;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

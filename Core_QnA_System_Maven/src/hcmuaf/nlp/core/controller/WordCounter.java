@@ -1,8 +1,8 @@
 package hcmuaf.nlp.core.controller;
 
 import hcmuaf.nlp.core.dao.WikiConceptDao;
-import hcmuaf.nlp.core.jdbcDao.impl.WikiConceptDaoImpl;
-import hcmuaf.nlp.core.model.WordCounterItem;
+import hcmuaf.nlp.core.dto.WordCounterItem;
+import hcmuaf.nlp.core.hibernateDao.impl.WikiConceptDaoImpl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,8 +45,6 @@ public class WordCounter {
 	public void updateWordCount() {
 		WikiConceptDao conceptDao = new WikiConceptDaoImpl();
 		for (WordCounterItem item : listWordItem) {
-			// System.out.println("update word:" + item.getWordID() +"  freq:" +
-			// item.getFreq());
 			conceptDao
 					.updateWordCount(pageID, item.getWordID(), item.getFreq());
 		}

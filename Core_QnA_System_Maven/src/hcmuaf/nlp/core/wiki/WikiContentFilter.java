@@ -1,10 +1,13 @@
-package hcmuaf.nlp.core.controller;
+package hcmuaf.nlp.core.wiki;
 
 import hcmuaf.nlp.core.dao.WikiConceptDao;
 import hcmuaf.nlp.core.hibernateDao.impl.WikiConceptDaoImpl;
+import hcmuaf.nlp.core.model.WikiPage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.core.MediaType;
 
@@ -49,38 +52,62 @@ public class WikiContentFilter {
 		ResteasyWebTarget target = client.target(LIST_PAGE_URL + catName);
 		String response = target.request(MediaType.APPLICATION_JSON).get()
 				.readEntity(String.class);
-		String jsonData = response.substring(
-				response.indexOf("categorymembers") - 2, response.length());
-		JSONObject jsonObject = new JSONObject(jsonData);
-		JSONArray listPage = jsonObject.getJSONArray("categorymembers");
-		for (int i = 0; i < listPage.length(); i++) {
-			JSONObject pageDetail = listPage.getJSONObject(i);
-			int pageId = pageDetail.getInt("pageid");
-			listPageID.add(new Integer(pageId));
+		if (response.indexOf("categorymembers") > 2) {
+			String jsonData = response.substring(
+					response.indexOf("categorymembers") - 2, response.length());
+			JSONObject jsonObject = new JSONObject(jsonData);
+			JSONArray listPage = jsonObject.getJSONArray("categorymembers");
+			for (int i = 0; i < listPage.length(); i++) {
+				JSONObject pageDetail = listPage.getJSONObject(i);
+				int pageId = pageDetail.getInt("pageid");
+				listPageID.add(new Integer(pageId));
+			}
+			System.out.println("category " + catName + " has number of Pages: "
+					+ listPageID.size());
 		}
-		System.out.println("category " + catName + " has number of Pages: "+ listPageID.size());
 		return listPageID;
 	}
 
-	public List<Integer> getListPage(String rootCat, int level) {
-		List<Integer> listPageID = new ArrayList<Integer>();
+	public Set<Integer> getListPage(String rootCat, int startLevel, int depth) {
+		Set<Integer> listPageID = new HashSet<Integer>();
 		listPageID.addAll(getListDirectPage(rootCat));
 		List<Integer> listSubCat = getListSubCategory(rootCat);
 		for (int pageID : listSubCat) {
 			String title = wikiConceptDao.getPageTitle(pageID);
-			System.out.println("start on page : " + pageID + " title : "+ title);
-			if (level < 4) {
-				if(title!=null)
-				listPageID.addAll(getListPage(title, level + 1));
+			System.out.println("start on page : " + pageID + " title : "
+					+ title);
+			if (startLevel < depth) {
+				if (title != null)
+					listPageID
+							.addAll(getListPage(title, startLevel + 1, depth));
 			} else {
 				return listPageID;
 			}
 		}
 		return listPageID;
 	}
+
+	public void updateProccessingPageStatus(String parentPage, int dept) {
+		Set<Integer> listPage = getListPage(parentPage, 1, dept);
+		System.out.println("Search page done, start to update "
+				+ listPage.size() + " pages");
+		WikiConceptDao conceptDao = new WikiConceptDaoImpl();
+		for (int pageID : listPage) {
+			WikiPage page = conceptDao.getPage(pageID);
+			if (page != null) {
+				page.setPageInProcess(true);
+				conceptDao.updatePage(page);
+			}
+		}
+		System.out.println("Finish update " + listPage.size() + " pages");
+	}
+
 	public static void main(String[] args) {
 		WikiContentFilter filter = new WikiContentFilter();
-		List<Integer> listPage = filter.getListPage("Giáo_dục", 1);
-		System.out.println("total page : " + listPage.size());
+		filter.updateProccessingPageStatus("Giáo_dục", 4);
+		filter.updateProccessingPageStatus("Khoa_học_tự_nhiên", 4);
+		filter.updateProccessingPageStatus("Khoa_học_xã_hội", 4);
+		filter.updateProccessingPageStatus("Kỹ_thuật", 4);
+		filter.updateProccessingPageStatus("Văn_hóa", 3);
 	}
 }

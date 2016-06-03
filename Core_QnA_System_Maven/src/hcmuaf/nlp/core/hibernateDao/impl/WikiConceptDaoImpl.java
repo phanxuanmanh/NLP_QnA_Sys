@@ -1,7 +1,6 @@
 package hcmuaf.nlp.core.hibernateDao.impl;
 
 import hcmuaf.nlp.core.dao.WikiConceptDao;
-import hcmuaf.nlp.core.model.ConceptWordPair;
 import hcmuaf.nlp.core.model.WikiConceptWord;
 import hcmuaf.nlp.core.model.WikiPage;
 import hcmuaf.nlp.core.util.HibernateUtil;
@@ -28,9 +27,11 @@ public class WikiConceptDaoImpl implements WikiConceptDao {
 	@Override
 	public ArrayList<Integer> getConCeptList() {
 		ArrayList<Integer> listConcept = new ArrayList<Integer>();
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session
-				.createSQLQuery("SELECT page_latest FROM wikidb.page  where page_len>200");
+				.createSQLQuery("select DISTINCT p.page_latest from page p left outer join concepts_words c on p.page_latest = c.page_id where c.page_id is null and p.page_len >200 and p.page_in_process =1");
 		@SuppressWarnings("unchecked")
 		List<Integer> rows = query.list();
 		for (int row : rows) {
@@ -55,12 +56,14 @@ public class WikiConceptDaoImpl implements WikiConceptDao {
 
 	@Override
 	public void updateWordCount(int page_latest, int wordId, int freq) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		WikiConceptWord vector = (WikiConceptWord) session
-				.get(WikiConceptWord.class, new ConceptWordPair(page_latest,
-						wordId));
-		vector.setFreq(vector.getFreq() + 1);
-		session.update(vector);
+		WikiConceptWord vector = new WikiConceptWord();
+		vector.setWordId(wordId);
+		vector.setPageId(page_latest);
+		vector.setFreq(freq);
+		session.save(vector);
 		tx.commit();
 	}
 
@@ -74,6 +77,26 @@ public class WikiConceptDaoImpl implements WikiConceptDao {
 				.setProjection(Projections.property("title")).uniqueResult();
 		tx.commit();
 		return content;
+	}
+
+	@Override
+	public WikiPage getPage(int pageId) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		WikiPage page = (WikiPage) session.get(WikiPage.class, pageId);
+		tx.commit();
+		return page;
+	}
+
+	@Override
+	public void updatePage(WikiPage wikiPage) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		session.update(wikiPage);
+		tx.commit();
+
 	}
 
 }
