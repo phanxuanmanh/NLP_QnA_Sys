@@ -12,6 +12,8 @@ public interface WikiConceptVectorDao {
 	
 	public List<WikiConceptWord> listWordVectorByWordId(int wordId);
 	
+	public List<WikiConceptWord> listWordVectorByListWordId(List<Integer> listWordIds);
+	
 	public long currentNumberOfConcept();
 
 	public List<Integer> getListPageId();

@@ -22,47 +22,50 @@ public class WikiConceptVectorDaoImpl implements WikiConceptVectorDao {
 	@Override
 	public long numberOfConceptContainWord(int wordId) {
 		sessionFactory = HibernateUtil.getSessionFactory();
-		session = sessionFactory.getCurrentSession();
+		session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		long countConcept = (long) session
-				.createCriteria(WikiConceptWord.class).setCacheable(true)
+				.createCriteria(WikiConceptWord.class)
 				.add(Restrictions.eq("wordId", wordId))
 				.setProjection(Projections.countDistinct("pageId"))
 				.uniqueResult();
 		tx.commit();
+		session.close();
 		return countConcept;
 	}
 
 	@Override
 	public List<WikiConceptWord> listWordVector(int page) {
 		sessionFactory = HibernateUtil.getSessionFactory();
-		session = sessionFactory.getCurrentSession();
+		session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<WikiConceptWord> listCOncept = session
-				.createCriteria(WikiConceptWord.class).setCacheable(true)
+				.createCriteria(WikiConceptWord.class)
 				.add(Restrictions.eq("pageId", page)).list();
 		tx.commit();
+		session.close();
 		return listCOncept;
 	}
 
 	@Override
 	public long currentNumberOfConcept() {
 		sessionFactory = HibernateUtil.getSessionFactory();
-		session = sessionFactory.getCurrentSession();
+		session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		long countConcept = (long) session
 				.createCriteria(WikiConceptWord.class)
 				.setProjection(Projections.countDistinct("pageId"))
 				.uniqueResult();
 		tx.commit();
+		session.close();
 		return countConcept;
 	}
 
 	@Override
 	public List<Integer> getListPageId() {
 		sessionFactory = HibernateUtil.getSessionFactory();
-		session = sessionFactory.getCurrentSession();
+		session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<Integer> listCOncept = session
@@ -71,6 +74,7 @@ public class WikiConceptVectorDaoImpl implements WikiConceptVectorDao {
 						Projections.distinct(Projections.property("pageId")))
 				.addOrder(Order.asc("pageId")).list();
 		tx.commit();
+		session.close();
 		return listCOncept;
 	}
 
@@ -87,13 +91,13 @@ public class WikiConceptVectorDaoImpl implements WikiConceptVectorDao {
 	@Override
 	public long numberOfWordInPage(int pageId) {
 		sessionFactory = HibernateUtil.getSessionFactory();
-		session = sessionFactory.getCurrentSession();
+		session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		long wordCount = (long) session.createCriteria(WikiConceptWord.class)
-				.setCacheable(true).add(Restrictions.eq("pageId", pageId))
+				.add(Restrictions.eq("pageId", pageId))
 				.setProjection(Projections.sum("freq")).uniqueResult();
 		tx.commit();
-
+		session.close();
 		return wordCount;
 	}
 
@@ -101,7 +105,7 @@ public class WikiConceptVectorDaoImpl implements WikiConceptVectorDao {
 	public HashMap<Integer, Integer> getWordWithFreq() {
 		HashMap<Integer, Integer> listWordFreq = new HashMap<Integer, Integer>();
 		sessionFactory = HibernateUtil.getSessionFactory();
-		session = sessionFactory.getCurrentSession();
+		session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session
 				.createSQLQuery("select word_id, count(page_id) from concepts_words  group by word_id");
@@ -114,20 +118,21 @@ public class WikiConceptVectorDaoImpl implements WikiConceptVectorDao {
 		}
 		tx.commit();
 		System.out.println("load words with frequence done");
+		session.close();
 		return listWordFreq;
 	}
 
 	@Override
 	public List<WikiConceptWord> listWordVectorByWordId(int wordId) {
 		sessionFactory = HibernateUtil.getSessionFactory();
-		session = sessionFactory.getCurrentSession();
+		session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<WikiConceptWord> listCOncept = session
 				.createCriteria(WikiConceptWord.class)
 				.add(Restrictions.eq("wordId", wordId)).list();
-		session.close();
 		tx.commit();
+		session.close();
 		return listCOncept;
 	}
 
@@ -141,6 +146,21 @@ public class WikiConceptVectorDaoImpl implements WikiConceptVectorDao {
 		}
 		tx.commit();
 		session.close();
+	}
+
+	@Override
+	public List<WikiConceptWord> listWordVectorByListWordId(
+			List<Integer> listWordIds) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.createQuery("FROM WikiConceptWord where wordId IN (:ids)");
+		query.setParameterList("ids",listWordIds);
+		@SuppressWarnings("unchecked")
+		List<WikiConceptWord> listCOncept = query.list();
+		tx.commit();
+		session.close();
+		return listCOncept;
 	}
 
 }

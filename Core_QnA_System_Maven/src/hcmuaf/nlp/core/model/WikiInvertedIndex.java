@@ -7,11 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "INVERTED_INDEX")
 public class WikiInvertedIndex {
 	@Id
@@ -22,8 +18,25 @@ public class WikiInvertedIndex {
 	private int pageId;
 	@Column(name = "word_id")
 	private int wordId;
-	@Column(name = "weight")
-	private double weight;
+	@Column(name = "freq")
+	private int freq;
+	@Column(name = "tfidf")
+	private double tfidf;
+	
+	
+	public WikiInvertedIndex() {
+		super();
+	}
+
+	public WikiInvertedIndex(int id, int pageId, int wordId, int freq,
+			double tfidf) {
+		super();
+		this.id = id;
+		this.pageId = pageId;
+		this.wordId = wordId;
+		this.freq = freq;
+		this.tfidf = tfidf;
+	}
 
 	public int getId() {
 		return id;
@@ -49,12 +62,30 @@ public class WikiInvertedIndex {
 		this.wordId = wordId;
 	}
 
-	public double getWeight() {
-		return weight;
+	public int getFreq() {
+		return freq;
 	}
 
-	public void setWeight(double weight) {
-		this.weight = weight;
+	public void setFreq(int freq) {
+		this.freq = freq;
 	}
 
+	public double getTfidf() {
+		return tfidf;
+	}
+
+	public void setTfidf(double tfidf) {
+		this.tfidf = tfidf;
+	}
+
+	public WikiConceptWord toWikiConcept(){
+		WikiConceptWord obj = new WikiConceptWord();
+		obj.setId(id);
+		obj.setPageId(pageId);
+		obj.setWordId(wordId);
+		obj.setTfidf(tfidf);
+		obj.setFreq(freq);
+		return obj;
+		
+	}
 }

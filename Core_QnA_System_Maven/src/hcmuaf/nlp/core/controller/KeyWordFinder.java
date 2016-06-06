@@ -44,6 +44,9 @@ public class KeyWordFinder {
 	public void questionStatistic(int quesID) {
 		QuestionDao questionDao = new QuestionDaoImpl();
 		String question = questionDao.getQuestion(quesID);
+		/**
+		 * needto improve this function, see WikiWordFinder
+		 * **/
 		if (question != null) {
 			String[] quesArr = question.split("\\.");
 			for (String str : quesArr) {
@@ -53,23 +56,12 @@ public class KeyWordFinder {
 				try {
 					System.out.println("complete split");
 					List<WordTag> list = tagger.tagText2(str);
-					/*
-					 * for (WordTag wordTag : list) { if
-					 * (!wordTag.tag().equals("R") &&
-					 * !wordTag.tag().equals("L")) { if
-					 * (!listDBWord.contains(wordTag.word().toUpperCase())) {
-					 * listDBWord.add(wordTag.word().toUpperCase());
-					 * wordAccess.addKeyWord(wordTag.word()); } int wid =
-					 * wordAccess.getWordId(wordTag.word());
-					 * wordAccess.updateWordCount(quesID, wid); } }
-					 */
 					for (WordTag wordTag : list) {
 						if (isKeyWord(wordTag)) {
 							String wordContent = wordTag.word();
 							int wid = keyWordDao.getWordId(wordContent);
 							questionDao.updateWordCount(quesID, wid);
 						}
-
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

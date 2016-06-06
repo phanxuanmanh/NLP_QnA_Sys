@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-/*@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)*/
 @Table(name = "CONCEPTS_WORDS")
 public class WikiConceptWord {
 	@Id

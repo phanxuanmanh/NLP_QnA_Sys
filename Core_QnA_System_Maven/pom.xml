@@ -10,12 +10,12 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.3.5.Final</version>
+			<version>4.3.10.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
-			<version>4.3.5.Final</version>
+			<version>4.3.10.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -86,13 +86,25 @@
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache-core</artifactId>
-			<version>2.6.9</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+			<version>2.6.11</version>
 		</dependency>
 		<!-- Hibernate EHCache API -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-ehcache</artifactId>
-			<version>4.3.5.Final</version>
+			<version>4.3.10.Final</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	<build>

@@ -42,9 +42,6 @@ public class WikiInvertedIndexBuilder {
 		}
 		
 		vectorDao.updateListConceptWord(listWordVectors);
-		/*for (WikiConceptWord vector : listWordVectors) {
-			vectorDao.updateConceptWord(vector);
-		}*/
 		long end = System.currentTimeMillis();
 		System.out.println("done update on page: " + pageId + " time:"
 				+ (end -init));

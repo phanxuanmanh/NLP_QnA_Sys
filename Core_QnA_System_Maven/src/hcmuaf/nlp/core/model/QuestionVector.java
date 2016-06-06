@@ -1,8 +1,10 @@
 package hcmuaf.nlp.core.model;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -12,8 +14,14 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "QUESTION_VECTORS")
 public class QuestionVector {
-	@EmbeddedId
-	private QuestionWordPair qwPair;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
+	@Column(name = "q_id")
+	private int questionID;
+	@Column(name = "wid")
+	private int wordID;
 	@Column(name = "freq")
 	private int freq;
 	@Column(name = "weight")
@@ -21,32 +29,38 @@ public class QuestionVector {
 
 	public QuestionVector(int questionID, int wordID, int freq, double tfidf) {
 		super();
-		QuestionWordPair pair = new QuestionWordPair();
-		pair.setQuestionID(questionID);
-		pair.setWordID(wordID);
-		this.qwPair = pair;
+		this.questionID = questionID;
+		this.wordID = wordID;
 		this.freq = freq;
 		this.tfidf = tfidf;
 	}
 
 	public QuestionVector() {
-		qwPair = new QuestionWordPair();
+		super();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getQuestionID() {
-		return qwPair.getQuestionID();
+		return questionID;
 	}
 
 	public void setQuestionID(int questionID) {
-		this.qwPair.setQuestionID(questionID);
+		this.questionID = questionID;
 	}
 
 	public int getWordID() {
-		return qwPair.getWordID();
+		return wordID;
 	}
 
 	public void setWordID(int wordID) {
-		this.qwPair.setWordID(wordID);
+		this.wordID = wordID;
 	}
 
 	public int getFreq() {

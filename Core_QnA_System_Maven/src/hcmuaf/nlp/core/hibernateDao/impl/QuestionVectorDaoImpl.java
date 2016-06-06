@@ -28,6 +28,8 @@ public class QuestionVectorDaoImpl implements QuestionVectorDao {
 
 	@Override
 	public void updateTFIDF(int qid, int wid, double tfidf) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		QuestionVector vector = new QuestionVector();
 		vector.setWordID(wid);
@@ -39,6 +41,8 @@ public class QuestionVectorDaoImpl implements QuestionVectorDao {
 
 	@Override
 	public ArrayList<QuestionVector> getListVector(int questionID) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		ArrayList<QuestionVector> listVector = new ArrayList<>();
 		Transaction tx = session.beginTransaction();
 		Query query = session
@@ -60,6 +64,8 @@ public class QuestionVectorDaoImpl implements QuestionVectorDao {
 
 	@Override
 	public void updateWordCount(int questionId, int wordId) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		QuestionVector vector = (QuestionVector) session.get(
 				QuestionVector.class, new QuestionWordPair(questionId, wordId));
