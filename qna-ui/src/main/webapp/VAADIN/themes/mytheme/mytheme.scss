@@ -31,14 +31,14 @@
 @import "../valo/valo.scss";
 @mixin mytheme {
   @include valo;
-.v-button-manh {
+.v-button-qna-menu {
 	height: 37px;
 	padding: 0 16px;
 	color: #eaf4e9;
 	font-weight: 400;
 	
 	
-	border-radius: 4px;
+	border-radius: 0px;
 	border: 1px solid #227719;
 	border-top-color: #257d1a;
 	border-bottom-color: #1e6b15;
@@ -50,7 +50,7 @@
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
 }
 
-.v-button-manh:after {
+.v-button-qna-menu:after {
 	border: inherit;
 	top: -1px;
 	right: -1px;
@@ -58,19 +58,33 @@
 	left: -1px;
 }
 
-.v-button-manh:hover:after {
+.v-button-qna-menu:hover:after {
 	background-color: rgba(65, 211, 48, 0.1);
 }
 
-.v-button-manh:focus:after {
+.v-button-qna-menu:focus:after {
 	border: inherit;
 	-webkit-box-shadow: 0 0 0 2px rgba(25, 125, 225, 0.5);
 	box-shadow: 0 0 0 2px rgba(25, 125, 225, 0.5);
 }
 
-.v-button-manh:active:after {
+.v-button-qna-menu:active:after {
 	background-color: rgba(14, 86, 6, 0.2);
 }
-
-  // Insert your own theme rules here
+.v-button-btn-align-left {
+	text-align: left;
+}
+.v-panel-question-custom {
+	padding: 10px;
+}
+.v-label-label-custom{
+    font-size: 16px;
+    font-family: "Arial";
+    margin-left: 5px;
+    color: #191919;
+}
+.v-horizontallayout-custom-horizontal {
+	    margin-top: 3px;
+	    margin-bottom: 3px;
+}
 }

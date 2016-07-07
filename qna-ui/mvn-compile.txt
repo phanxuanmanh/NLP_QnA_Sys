@@ -1,0 +1,2 @@
+mvn vaadin:compile-theme
+mvn vaadin:compile
