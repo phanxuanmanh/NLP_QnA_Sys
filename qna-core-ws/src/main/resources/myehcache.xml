@@ -1,0 +1,26 @@
+<!-- Use when config cache mechanism -->
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	monitoring="autodetect" dynamicConfig="true">
+
+	<diskStore path="java.io.tmpdir/ehcache" />
+
+	<defaultCache maxEntriesLocalHeap="5000000" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="3600" diskSpoolBufferSizeMB="600"
+		maxEntriesLocalDisk="100000000" diskExpiryThreadIntervalSeconds="3600"
+		memoryStoreEvictionPolicy="LRU" statistics="true">
+		<persistence strategy="localTempSwap" />
+	</defaultCache>
+	<cache name="employee" maxEntriesLocalHeap="10000" eternal="false" 
+		timeToIdleSeconds="5" timeToLiveSeconds="10"> <persistence strategy="localTempSwap" 
+		/> </cache>
+	<cache name="org.hibernate.cache.internal.StandardQueryCache"
+		maxEntriesLocalHeap="5000000" eternal="false" timeToLiveSeconds="3600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+
+	<cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+		maxEntriesLocalHeap="5000000" eternal="true">
+		<persistence strategy="localTempSwap" />
+	</cache>
+</ehcache>

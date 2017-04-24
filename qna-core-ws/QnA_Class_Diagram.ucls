@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.13" icons="true" always-add-relationships="true" generalizations="false" 
+  realizations="false" associations="false" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="hcmuaf.nlp.rest.resource.QnAController" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/rest/resource/QnAController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="131" width="266" x="-54" y="-11"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="hcmuaf.nlp.rest.resource.QuestionHistoryController" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/rest/resource/QuestionHistoryController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="159" width="243" x="222" y="-11"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="hcmuaf.nlp.rest.resource.QuestionManageController" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/rest/resource/QuestionManageController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="128" width="263" x="486" y="-6"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="4" language="java" name="hcmuaf.nlp.core.service.QnAHistoryService" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/service/QnAHistoryService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="137" width="247" x="219" y="167"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="5" language="java" name="hcmuaf.nlp.core.service.QnAManageService" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/service/QnAManageService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="123" width="259" x="490" y="174"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="6" language="java" name="hcmuaf.nlp.core.service.QnAProcessService" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/service/QnAProcessService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="121" width="254" x="-49" y="175"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="7" language="java" name="hcmuaf.nlp.core.dao.QnADao" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/dao/QnADao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="158" y="623"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="8" language="java" name="hcmuaf.nlp.core.dao.QuestionHistoryDao" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/dao/QuestionHistoryDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="432" y="568"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="9" language="java" name="hcmuaf.nlp.core.processing.KeyWordFinder" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/processing/KeyWordFinder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="130" width="168" x="167" y="321"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="10" language="java" name="hcmuaf.nlp.core.service.QuestionComparator" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/service/QuestionComparator.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="19" y="335"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="11" language="java" name="hcmuaf.nlp.core.dao.QuestionVectorDao" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/dao/QuestionVectorDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="29" y="568"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </interface>  
+  <interface id="12" language="java" name="hcmuaf.nlp.core.dao.WikiConceptDao" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/dao/WikiConceptDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="661" y="623"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="13" language="java" name="hcmuaf.nlp.core.dao.QnASystemConfigDao" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/dao/QnASystemConfigDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="243" y="568"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="14" language="java" name="hcmuaf.nlp.core.dao.KeyWordDao" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/dao/KeyWordDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="20" y="623"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="15" language="java" name="hcmuaf.nlp.core.dao.AnswerDao" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/dao/AnswerDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="288" y="623"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="16" language="java" name="hcmuaf.nlp.core.dao.QuestionDao" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/dao/QuestionDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="447" y="623"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="17" language="java" name="hcmuaf.nlp.core.dao.WikiConceptWordDao" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/dao/WikiConceptWordDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="644" y="568"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="18" language="java" name="hcmuaf.nlp.core.service.QuestionTFIDFService" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/service/QuestionTFIDFService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="22" y="381"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="19" language="java" name="hcmuaf.nlp.core.service.WikiInterpretationVertorService" 
+    project="qna-core-ws" file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/service/WikiInterpretationVertorService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="47" y="431"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="20" language="java" name="hcmuaf.nlp.core.service.WikiConceptVectorAccessor" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/service/WikiConceptVectorAccessor.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="39" y="478"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="21" language="java" name="hcmuaf.nlp.core.model.QuestionVector" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/model/QuestionVector.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="148" width="129" x="326" y="678"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="hcmuaf.nlp.core.model.Answer" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/model/Answer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="51" y="917"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="hcmuaf.nlp.core.model.Question" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/model/Question.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="49" y="739"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="hcmuaf.nlp.core.model.QuestionHistory" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/model/QuestionHistory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="625" y="761"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="hcmuaf.nlp.core.model.WikiPage" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/model/WikiPage.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="150" width="146" x="126" y="850"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="hcmuaf.nlp.core.model.WikiPageContent" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/model/WikiPageContent.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="84" width="145" x="126" y="681"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="hcmuaf.nlp.core.model.WikiConceptWord" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/model/WikiConceptWord.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="393" y="896"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="hcmuaf.nlp.core.model.Keyword" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/model/Keyword.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="51" y="998"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="hcmuaf.nlp.core.model.QnAPairEntity" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/model/QnAPairEntity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="75" width="147" x="126" y="768"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="hcmuaf.nlp.core.model.QnASystemConfig" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/model/QnASystemConfig.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="112" width="159" x="549" y="849"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="hcmuaf.nlp.core.model.QuestionType" project="qna-core-ws" 
+    file="/qna-core-ws/src/main/java/hcmuaf/nlp/core/model/QuestionType.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="50" y="836"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <association id="32">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="33" name="qnaHistoryService">        
+        <position height="18" width="97" x="247" y="144"/>      
+      </attribute>      
+      <multiplicity id="34" minimum="0" maximum="1">        
+        <position height="16" width="23" x="354" y="150"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="35">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="36" name="processService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="37" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="38">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="39" name="manageService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="40" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="false" package="false" protected="false" private="false" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

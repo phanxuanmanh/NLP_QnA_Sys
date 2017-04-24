@@ -1,0 +1,1 @@
+mvn exec:java -Dexec.mainClass=hcmuaf.nlp.core.wiki.TestWikiWord -Dexec.classpathScope=runtime
