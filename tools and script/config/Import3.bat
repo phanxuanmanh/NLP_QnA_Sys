@@ -1,0 +1,1 @@
+java -jar E:\NLP\trunk\mwdumper\target\mwdumper-1.25.jar C:\Users\Kiki\Downloads\viwiki-20160305\viwiki-20160305-pages-articles.xml --format=sql:1.5 --filter=notalk > E:\NLP\enwiki-latest-pages-articles-multistream.sql
