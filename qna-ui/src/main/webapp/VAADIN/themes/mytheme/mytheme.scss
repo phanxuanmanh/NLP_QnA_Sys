@@ -87,4 +87,43 @@
 	    margin-top: 3px;
 	    margin-bottom: 3px;
 }
+.v-table{
+		font-family: Arial;
+}
+.v-window{
+	font-family: Arial;
+}
+.v-verticallayout, .v-customlayout{
+	font-family: Arial;
+}
+$green-background: #3dbc1a;
+$orange-background: #fe902a;
+.v-panel-caption-green-background {
+    @include valo-panel-caption-style($background-color: $green-background);
+    color: #fafafa;
+    padding: 0px 10px 0px 10px;
+  }
+ 
+.v-panel-caption-orange-background {
+    @include valo-panel-caption-style($background-color: $orange-background);
+     color: #fafafa;
+     padding: 0px 10px 0px 10px;
+  }
+.v-label-label-custom {
+	font-size: 16px;
+	font-family: "Arial";
+	margin-left: 5px;
+	color: #191919;
+}
+
+.v-panel-question-custom {
+	padding: 10px;
+}
+.v-horizontallayout-custom-horizontal {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+.v-button-btn-align-left {
+	text-align: left;
+}
 }

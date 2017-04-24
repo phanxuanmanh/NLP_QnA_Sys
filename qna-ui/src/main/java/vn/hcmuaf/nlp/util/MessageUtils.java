@@ -18,7 +18,6 @@ public class MessageUtils {
 			try {
 				return new String(RESOURCE_BUNDLE.getString(key).getBytes("ISO-8859-1"),"UTF-8");
 			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} catch (MissingResourceException e) {

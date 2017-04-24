@@ -63,4 +63,8 @@ public class Question implements Serializable {
 	public void setTypeId(Integer typeId) {
 		this.typeId = typeId;
 	}
+	@Override
+	public String toString() {
+		return content;
+	}
 }

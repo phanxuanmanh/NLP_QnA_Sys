@@ -1,0 +1,9 @@
+@import "addons.scss";
+@import "qna_ui.scss";
+
+/* This file prefixes all rules with the theme name to avoid causing conflicts with other themes. */
+/* The actual styles should be defined in qna_ui.scss */
+.qna_ui {
+  @include addons;
+  @include qna_ui;
+}
