@@ -1,1 +1,0 @@
-mvn exec:java -Dexec.mainClass=hcmuaf.nlp.core.wiki.RunWikiInvertedIndexBuilder -Dexec.classpathScope=runtime

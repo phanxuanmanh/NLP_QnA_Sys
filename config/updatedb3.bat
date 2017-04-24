@@ -1,1 +1,0 @@
-C:\xampp\php\php.exe C:\xampp\htdocs\mediawiki-1.24.5\maintenance\update.php
